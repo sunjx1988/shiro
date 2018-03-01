@@ -66,10 +66,24 @@
         <property name="sessionValidationSchedulerEnabled" value="true"/>
         <property name="sessionValidationScheduler" ref="sessionValidationScheduler"/>
         <property name="sessionDAO" ref="sessionDAO"/>
+        <!-- 开启sessionid cookie -->
+        <property name="sessionIdCookieEnabled" value="true"/>
+        <property name="sessionIdCookie" ref="sessionIdCookie"/>
+
+    </bean>
+
+    <!-- cookie -->
+    <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <property name="name" value="sid" />
+        <!--
+        <property name="domain" value="" />
+        <property name="path" value="" />
+        -->
+        <property name="maxAge" value="1800" />
+        <property name="httpOnly" value="true" />
     </bean>
 
     <!-- 一般应用程序安全管理器 -->
-
 <!--
     <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">
         <property name="realms">
