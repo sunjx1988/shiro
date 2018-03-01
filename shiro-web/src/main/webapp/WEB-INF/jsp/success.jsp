@@ -2,15 +2,13 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
 <html>
 <head>
-    <title></title>
+    <title>成功页</title>
 </head>
 <body>
+<h1>登录成功！！！</h1>
 <shiro:hasAnyRoles name="admin">
     <shiro:principal/>拥有角色admin
 </shiro:hasAnyRoles>
-<br/><a href="${pageContext.request.contextPath}/">首页</a><br/>
-<br/><a href="${pageContext.request.contextPath}/login">登录</a><br/>
-<br/><a href="${pageContext.request.contextPath}/unauthorized">不需要权限页</a><br/>
-<br/><a href="${pageContext.request.contextPath}/authorized">需要权限页</a><br/>
+<jsp:include page="link.jsp"></jsp:include>
 </body>
 </html>

@@ -6,13 +6,13 @@
     <!-- 默认配置 -->
     <defaultCache
         maxElementsInMemory="2000"
-        maxElementsOnDisk="0"
+        maxElementsOnDisk="1000"
         eternal="true"
         overflowToDisk="true"
         diskPersistent="false"
-        timeToIdleSeconds="0"
-        timeToLiveSeconds="0"
-        diskSpoolBufferSizeMB="50"
+        timeToIdleSeconds="100"
+        timeToLiveSeconds="100"
+        diskSpoolBufferSizeMB="500"
         diskExpiryThreadIntervalSeconds="120"
         memoryStoreEvictionPolicy="LFU"
     />

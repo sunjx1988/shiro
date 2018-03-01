@@ -26,7 +26,7 @@ import shiro.service.UserService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-shiro.xml"})
 @Transactional
-@Rollback
+@Rollback(false)
 public class ShiroSpringRun {
 
     @Autowired

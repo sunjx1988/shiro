@@ -7,9 +7,6 @@
 <body>
 
 <div class="error">您没有权限[${exception.message}]</div>
-<br/><a href="${pageContext.request.contextPath}/">首页</a><br/>
-<br/><a href="${pageContext.request.contextPath}/login">登录</a><br/>
-<br/><a href="${pageContext.request.contextPath}/unauthorized">不需要权限页</a><br/>
-<br/><a href="${pageContext.request.contextPath}/authorized">需要权限页</a><br/>
+<jsp:include page="link.jsp"></jsp:include>
 </body>
 </html>

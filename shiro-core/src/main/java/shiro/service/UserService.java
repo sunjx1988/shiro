@@ -2,6 +2,7 @@ package shiro.service;
 
 import shiro.entity.SysUsers;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,6 +14,11 @@ public interface UserService {
      *
      */
     SysUsers createSysUsers(SysUsers sysUsers);
+
+    /**
+     * 查询所有用户
+     */
+    List<SysUsers> listAll();
 
     /**
      * 修改密码

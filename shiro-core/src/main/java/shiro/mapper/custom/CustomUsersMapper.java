@@ -1,6 +1,7 @@
 package shiro.mapper.custom;
 
 import shiro.entity.SysPermissions;
+import shiro.entity.SysUsers;
 import shiro.mapper.SysUsersMapper;
 
 import java.util.List;
@@ -11,4 +12,6 @@ import java.util.List;
 public interface CustomUsersMapper extends SysUsersMapper {
 
     List<SysPermissions> selectPermissionByUserName(String userName);
+
+    List<SysUsers> listAll();
 }

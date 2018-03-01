@@ -9,4 +9,10 @@
     and u.username = #{userName};
   </select>
 
+  <select id="listAll" resultMap="shiro.mapper.SysUsersMapper.BaseResultMap">
+    select
+    <include refid="shiro.mapper.SysUsersMapper.Base_Column_List"></include>
+    from sys_users;
+  </select>
+
 </mapper>

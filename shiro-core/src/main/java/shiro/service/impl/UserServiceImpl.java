@@ -40,6 +40,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<SysUsers> listAll() {
+        return sysUsersMapper.listAll();
+    }
+
+    @Override
     @Transactional
     public void changePassword(Long sysUsersId, String newPassword) {
         SysUsers user = sysUsersMapper.selectByPrimaryKey(sysUsersId);

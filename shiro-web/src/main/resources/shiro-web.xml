@@ -18,6 +18,7 @@
 
     <aop:config proxy-target-class="true"></aop:config>
 
+    <!-- 支持权限注解 -->
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
@@ -27,6 +28,7 @@
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
         <property name="loginUrl" value="/login"/>
+        <property name="successUrl" value="/success"/>
     </bean>
 
     <!-- Shiro的Web过滤器 -->
@@ -34,6 +36,7 @@
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/login"/>
         <property name="unauthorizedUrl" value="/unauthorized"/>
+
         <property name="filters">
             <util:map>
                 <entry key="authc" value-ref="formAuthenticationFilter"/>
@@ -44,6 +47,7 @@
                 / = anon
                 /index.jsp = anon
                 /unauthorized = anon
+                /success = anon
                 /login = authc
                 /logout = logout
                 /** = user
