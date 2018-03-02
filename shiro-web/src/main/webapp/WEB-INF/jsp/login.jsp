@@ -10,7 +10,8 @@
 <form action="" method="post">
     用户名：<input type="text" name="username"><br/>
     密&nbsp;&nbsp;&nbsp;码：<input type="password" name="password"><br/>
-    <input type="submit" value="登录">
+    <label>记住我<input name="isRememberMe" type="checkbox" value="true" /></label><br/>
+    <input type="submit" value="登录"><br/>
 </form>
 <jsp:include page="link.jsp"></jsp:include>
 </body>

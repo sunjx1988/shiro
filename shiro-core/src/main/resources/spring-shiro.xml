@@ -72,7 +72,7 @@
 
     </bean>
 
-    <!-- cookie -->
+    <!-- session cookie -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <property name="name" value="sid" />
         <!--
@@ -81,6 +81,19 @@
         -->
         <property name="maxAge" value="1800" />
         <property name="httpOnly" value="true" />
+    </bean>
+
+    <!-- rememberMeCookie -->
+    <bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+        <constructor-arg value="rememberMe"/>
+        <property name="httpOnly" value="true"/>
+        <property name="maxAge" value="2592000"/><!-- 30天 -->
+    </bean>
+
+    <!-- rememberMe管理器，cipherKey是加密rememberMe Cookie的密钥；默认AES算法； -->
+    <bean id="rememberMeManager"  class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+        <property name="cipherKey" value="#{T(org.apache.shiro.codec.Base64).decode('4AvVhmFLUs0KTA3Kprsdag==')}"/>
+        <property name="cookie" ref="rememberMeCookie"/>
     </bean>
 
     <!-- 一般应用程序安全管理器 -->
@@ -104,6 +117,7 @@
             </list>
         </property>
         <property name="sessionManager" ref="sessionManager"/>
+        <property name="rememberMeManager" ref="rememberMeManager"/>
         <property name="cacheManager" ref="cacheManager"/>
     </bean>
 

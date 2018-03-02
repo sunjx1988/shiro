@@ -27,6 +27,7 @@
     <bean id="formAuthenticationFilter" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
         <property name="usernameParam" value="username"/>
         <property name="passwordParam" value="password"/>
+        <property name="rememberMeParam" value="isRememberMe"/>
         <property name="loginUrl" value="/login"/>
         <property name="successUrl" value="/success"/>
     </bean>
@@ -47,7 +48,7 @@
                 / = anon
                 /index.jsp = anon
                 /unauthorized = anon
-                /success = anon
+                /success = authc
                 /login = authc
                 /logout = logout
                 /** = user
