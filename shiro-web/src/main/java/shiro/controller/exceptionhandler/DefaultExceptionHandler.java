@@ -1,4 +1,4 @@
-package shiro;
+package shiro.controller.exceptionhandler;
 
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.HttpStatus;
