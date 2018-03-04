@@ -3,7 +3,6 @@ package shiro.service;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +19,6 @@ import shiro.entity.SysUsers;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-db.xml"})
 @Transactional
-@Rollback
 public class UserServiceRun {
 
     @Autowired
@@ -131,7 +129,7 @@ public class UserServiceRun {
         user.setPassword("000000");
         user.setSalt("123456");
 
-        userService.createSysUsers(user);
+        userService.createUser(user);
         System.out.println("新增用户: " + user);
         return user;
     }

@@ -3,16 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <parent>
-        <groupId>shiro</groupId>
-        <artifactId>shiro-parent</artifactId>
-        <version>1.0-SNAPSHOT</version>
-        <relativePath>../shiro-parent/pom.xml</relativePath>
-    </parent>
-
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>shiro-core</artifactId>
-    <packaging>jar</packaging>
+    <artifactId>shiro-oauth-client</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -21,12 +15,10 @@
         <springjunit.version>4.12</springjunit.version>
         <shiro.verson>1.3.0</shiro.verson>
         <aspect-version>1.8.0</aspect-version>
+        <oltu.version>1.0.2</oltu.version>
     </properties>
 
     <dependencies>
-
-        <!-- spring -->
-
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
@@ -133,32 +125,59 @@
             <version>1.0.31</version>
         </dependency>
 
-        <!--jackson -->
-<!--        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.2.3</version>
-        </dependency>-->
-
-        <!--spring test 结合 junit 进行测试-->
+        <!-- spring-mvc -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
+            <artifactId>spring-webmvc</artifactId>
             <version>${org.springframework.version}</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <!-- shiro-web -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-web</artifactId>
+            <version>${shiro.verson}</version>
+        </dependency>
+
+        <!-- oltu客户端 -->
+        <dependency>
+            <groupId>org.apache.oltu.oauth2</groupId>
+            <artifactId>org.apache.oltu.oauth2.client</artifactId>
+            <version>${oltu.version}</version>
+        </dependency>
+
+        <!-- servlet 3 -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- jsp -->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <version>2.2</version>
+        </dependency>
+
+        <!-- jstl -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
         </dependency>
 
     </dependencies>
 
     <build>
-        <finalName>shiro</finalName>
+        <finalName>shiro-oauth-client</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -168,28 +187,7 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
-
-            <!-- mybatis 实体类生成工具 -->
-            <plugin>
-                <groupId>org.mybatis.generator</groupId>
-                <artifactId>mybatis-generator-maven-plugin</artifactId>
-                <version>1.3.2</version>
-                <configuration>
-                    <configurationFile>src\main\resources\generatorConfig.xml</configurationFile>
-                    <verbose>true</verbose>
-                    <overwrite>true</overwrite>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.mybatis.generator</groupId>
-                        <artifactId>mybatis-generator-core</artifactId>
-                        <version>1.3.2</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
         </plugins>
     </build>
-
 
 </project>

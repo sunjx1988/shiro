@@ -33,10 +33,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public SysUsers createSysUsers(SysUsers sysUsers) {
+    public SysUsers createUser(SysUsers sysUsers) {
         passwordHelper.encryptPassword(sysUsers);
         sysUsersMapper.insert(sysUsers);
         return sysUsers;
+    }
+
+    @Override
+    public SysUsers findOne(Long id) {
+        return sysUsersMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void updateUser(SysUsers sysUsers) {
+        sysUsersMapper.updateByPrimaryKey(sysUsers);
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+        sysUsersMapper.deleteByPrimaryKey(id);
     }
 
     @Override

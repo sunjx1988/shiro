@@ -21,18 +21,18 @@
                         password="000000"/>
 
 		<!-- entity -->
-        <javaModelGenerator targetPackage="shiro.entity" targetProject="D:\idea-workspace\shiro\src\main\java">
+        <javaModelGenerator targetPackage="shiro.entity" targetProject="D:\idea-workspace\shiro\shiro-core\src\main\java">
             <property name="enableSubPackages" value="true"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
         <!-- mapper.xml -->
-        <sqlMapGenerator targetPackage="mapper" targetProject="D:\idea-workspace\shiro\src\main\resources">
+        <sqlMapGenerator targetPackage="mapper" targetProject="D:\idea-workspace\shiro\shiro-core\src\main\resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
         <!-- mapper.java -->
-        <javaClientGenerator targetPackage="shiro.mapper" targetProject="D:\idea-workspace\shiro\src\main\java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="shiro.mapper" targetProject="D:\idea-workspace\shiro\shiro-core\src\main\java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
@@ -99,6 +99,32 @@
                enableDeleteByPrimaryKey="false"
                enableUpdateByPrimaryKey="false"
                selectByExampleQueryId="false" >
+
+        </table>
+
+        <table tableName="oauth2_user"
+               domainObjectName="Oauth2User"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               enableSelectByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true"
+               enableUpdateByPrimaryKey="true"
+               selectByExampleQueryId="true" >
+
+        </table>
+
+        <table tableName="oauth2_client"
+               domainObjectName="Oauth2Client"
+               enableCountByExample="true"
+               enableUpdateByExample="true"
+               enableDeleteByExample="true"
+               enableSelectByExample="true"
+               enableSelectByPrimaryKey="true"
+               enableDeleteByPrimaryKey="true"
+               enableUpdateByPrimaryKey="true"
+               selectByExampleQueryId="true" >
 
         </table>
 

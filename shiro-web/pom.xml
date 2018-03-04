@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-        <artifactId>shiro-parent</artifactId>
         <groupId>shiro</groupId>
+        <artifactId>shiro-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
         <relativePath>../shiro-parent/pom.xml</relativePath>
     </parent>
@@ -18,6 +18,7 @@
         <springjunit.version>4.12</springjunit.version>
         <shiro.verson>1.3.0</shiro.verson>
         <aspect-version>1.8.0</aspect-version>
+        <oltu.version>1.0.2</oltu.version>
     </properties>
 
     <dependencies>
@@ -47,6 +48,20 @@
             <groupId>org.apache.shiro</groupId>
             <artifactId>shiro-web</artifactId>
             <version>${shiro.verson}</version>
+        </dependency>
+
+        <!-- 认证服务器 -->
+        <dependency>
+            <groupId>org.apache.oltu.oauth2</groupId>
+            <artifactId>org.apache.oltu.oauth2.authzserver</artifactId>
+            <version>${oltu.version}</version>
+        </dependency>
+
+        <!-- 资源服务器 -->
+        <dependency>
+            <groupId>org.apache.oltu.oauth2</groupId>
+            <artifactId>org.apache.oltu.oauth2.resourceserver</artifactId>
+            <version>${oltu.version}</version>
         </dependency>
 
         <!-- servlet 3 -->

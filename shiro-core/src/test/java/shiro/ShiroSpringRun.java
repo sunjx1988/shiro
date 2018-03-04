@@ -1,15 +1,12 @@
 package shiro;
 
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +23,6 @@ import shiro.service.UserService;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-shiro.xml"})
 @Transactional
-@Rollback(false)
 public class ShiroSpringRun {
 
     @Autowired
@@ -148,7 +144,7 @@ public class ShiroSpringRun {
         user.setPassword("000000");
         user.setSalt("123456");
 
-        userService.createSysUsers(user);
+        userService.createUser(user);
         System.out.println("新增用户: " + user);
         return user;
     }

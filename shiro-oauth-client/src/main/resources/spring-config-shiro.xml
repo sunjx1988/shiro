@@ -1,47 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-
-    <import resource="spring-db.xml"/>
-
-    <context:annotation-config />
-
-    <context:component-scan base-package="shiro.component" />
-
-    <!-- 缓存管理器 使用Ehcache实现 -->
-    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
-        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
-    </bean>
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util.xsd">
 
     <!-- passwordHelper 密码加密工具 -->
     <bean id="passwordHelper" class="shiro.helper.PasswordHelper">
         <constructor-arg name="algorithmName" value="md5" />
         <constructor-arg name="hashIterations" value="2" />
-    </bean>
-
-    <!-- 凭证匹配器 -->
-    <bean id="retryLimitHashedCredentialsMatcher" class="shiro.component.RetryLimitHashedCredentialsMatcher">
-        <constructor-arg name="cacheManager" ref="cacheManager"/>
-        <constructor-arg name="passwordRetryCacheName" value="passwordRetryCacheName" />
-        <constructor-arg name="maxRetry" value="5" />
-        <property name="hashAlgorithmName" value="md5"/>
-        <property name="hashIterations" value="2"/>
-    </bean>
-
-    <!-- Realm实现 -->
-    <bean id="userRealm" class="shiro.component.UserRealm">
-        <property name="userService" ref="userService"/>
-        <property name="credentialsMatcher" ref="retryLimitHashedCredentialsMatcher"/>
-        <property name="cachingEnabled" value="true"/>
-        <property name="authenticationCachingEnabled" value="true"/>
-        <property name="authenticationCacheName" value="authenticationCache"/>
-        <property name="authorizationCachingEnabled" value="true"/>
-        <property name="authorizationCacheName" value="authorizationCache"/>
     </bean>
 
     <!-- 会话ID生成器 -->
@@ -75,10 +44,8 @@
     <!-- session cookie -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
         <property name="name" value="sid" />
-        <!--
-        <property name="domain" value="" />
-        <property name="path" value="" />
-        -->
+        <property name="domain" value="${session.domain}" />
+        <property name="path" value="${session.path}" />
         <property name="maxAge" value="1800" />
         <property name="httpOnly" value="true" />
     </bean>
@@ -96,29 +63,11 @@
         <property name="cookie" ref="rememberMeCookie"/>
     </bean>
 
-    <!-- 一般应用程序安全管理器 -->
-<!--
-    <bean id="securityManager" class="org.apache.shiro.mgt.DefaultSecurityManager">
-        <property name="realms">
-            <list>
-                <ref bean="userRealm"/>
-            </list>
-        </property>
-        <property name="sessionManager" ref="sessionManager"/>
-        <property name="cacheManager" ref="cacheManager"/>
-    </bean>
--->
-
     <!-- web程序安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-        <property name="realms">
-            <list>
-                <ref bean="userRealm"/>
-            </list>
-        </property>
         <property name="sessionManager" ref="sessionManager"/>
         <property name="rememberMeManager" ref="rememberMeManager"/>
-        <property name="cacheManager" ref="cacheManager"/>
+        <property name="realm" ref="oAuth2Realm" />
     </bean>
 
     <!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
@@ -130,5 +79,52 @@
     <!-- Shiro生命周期处理器-->
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
+
+    <!-- OauthRealm -->
+    <bean id="oAuth2Realm" class="shiro.oauth.OAuth2Realm">
+        <property name="cachingEnabled" value="true"/>
+        <property name="authenticationCachingEnabled" value="true"/>
+        <property name="authenticationCacheName" value="authenticationCache"/>
+        <property name="authorizationCachingEnabled" value="true"/>
+        <property name="authorizationCacheName" value="authorizationCache"/>
+        <!-- 在oauth服务器注册时 clientid -->
+        <property name="clientId" value="${client.id}"/>
+        <!-- 在oauth服务器注册时 clientSecret -->
+        <property name="clientSecret" value="${client.secret}"/>
+        <!--  -->
+        <property name="accessTokenUrl" value="${server.access.token.url}"/>
+        <!--  -->
+        <property name="userInfoUrl" value="${server.user.info.url}"/>
+        <!--  -->
+        <property name="redirectUrl" value="${client.redirect.url}"/>
+    </bean>
+
+    <!-- oauth过滤器 -->
+    <bean id="oAuth2AuthenticationFilter" class="shiro.oauth.OAuth2AuthenticationFilter">
+        <property name="authcCodeParam" value="code"/>
+        <property name="failureUrl" value="/oauth2/failure"/>
+    </bean>
+
+    <!-- Shiro的Web过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="${server.authorize.url}?client_id=${client.id}&amp;response_type=code&amp;redirect_uri=${client.redirect.url}"/>
+        <property name="successUrl" value="/"/>
+
+        <property name="filters">
+            <util:map>
+                <entry key="oauth2Authc" value-ref="oAuth2AuthenticationFilter"/>
+            </util:map>
+        </property>
+        <property name="filterChainDefinitions">
+            <value>
+                / = anon
+                /oauth2/failure = anon
+                /oauth2_login = oauth2Authc
+                /logout = logout
+                /** = user
+            </value>
+        </property>
+    </bean>
 
 </beans>

@@ -13,7 +13,22 @@ public interface UserService {
      * 创建用户
      *
      */
-    SysUsers createSysUsers(SysUsers sysUsers);
+    SysUsers createUser(SysUsers sysUsers);
+
+    /**
+     * 根据id查询用户
+     */
+    SysUsers findOne(Long id);
+
+    /**
+     * 更新用户
+     */
+    void updateUser(SysUsers sysUsers);
+
+    /**
+     * 根据ID删除用户
+     */
+    void deleteUser(Long id);
 
     /**
      * 查询所有用户
