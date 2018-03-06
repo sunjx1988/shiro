@@ -12,6 +12,7 @@ import java.util.Set;
  */
 @Service
 public class ResourceServiceImpl implements ResourceService {
+
     @Override
     public Set<String> findPermissions(Set<Long> resourceIds) {
         return null;
